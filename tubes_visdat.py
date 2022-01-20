@@ -18,15 +18,15 @@ from bokeh.models import Slider, Select
 from bokeh.io import output_file, output_notebook, curdoc
 from bokeh.models.widgets import Tabs, Panel
 
-ds1 = pd.read_csv("DataSet1.csv", parse_dates=['date'])
-ds1.head()
+data = pd.read_csv("./data/covid19.csv", parse_dates=['date'])
+data.head()
 
-ds1["Name"] = "DataCovid"
-ds1
+data["Name"] = "DataCovid"
+data
 
-ds1['Name'].unique()
+data['Name'].unique()
 
-newDS1 = ds1
+newDS1 = data
 newDS1 = newDS1.sort_values(['date', 'Name'])
 newDS1.head()
 
@@ -80,9 +80,33 @@ covidFig.legend.click_policy = 'hide'
 covidFig2.legend.click_policy = 'hide'
 covidFig3.legend.click_policy = 'hide'
 
+date_slider_acc = DateRangeSlider(value=(min(newDS1['date']), max(newDS1['date'])),
+                              start=min(newDS1['date']),end=max(newDS1['date']),width=300)
+date_slider_acc.js_link('value', covidFig.x_range, 'start', attr_selector=0)
+date_slider_acc.js_link('value', covidFig.x_range, 'end', attr_selector=1)
+
+date_slider_new = DateRangeSlider(value=(min(newDS1['date']), max(newDS1['date'])),
+                              start=min(newDS1['date']),end=max(newDS1['date']),width=300)
+date_slider_new.js_link('value', covidFig2.x_range, 'start', attr_selector=0)
+date_slider_new.js_link('value', covidFig2.x_range, 'end', attr_selector=1)
+
+date_slider_neg = DateRangeSlider(value=(min(newDS1['date']), max(newDS1['date'])),
+                              start=min(newDS1['date']),end=max(newDS1['date']),width=300)
+date_slider_neg.js_link('value', covidFig3.x_range, 'start', attr_selector=0)
+date_slider_neg.js_link('value', covidFig3.x_range, 'end', attr_selector=1)
+
+layout1 = row(date_slider_acc, covidFig)
+layout2 = row(date_slider_new, covidFig2)
+layout3 = row(date_slider_neg, covidFig3)
+
+
+cv = Panel(child= layout1, title='acc_confirmed')
+cv2 = Panel(child= layout2, title='new_confirmed')
+cv3 = Panel(child= layout3, title='acc_negative')
+
 cv = Panel(child= covidFig, title='acc_confirmed')
 cv2 = Panel(child= covidFig2, title='new_confirmed')
 cv3 = Panel(child= covidFig3, title='acc_negative')
-
 tabs = Tabs(tabs=[cv, cv2, cv3])
-show(tabs)
+
+curdoc().add_root(tabs)
