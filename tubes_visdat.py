@@ -11,13 +11,11 @@ pip install bokeh
 
 import pandas as pd
 from bokeh.plotting import figure, show
-from bokeh.io import curdoc
 from bokeh.models import HoverTool, ColumnDataSource
-from bokeh.models import CategoricalColorMapper
-from bokeh.palettes import Spectral11
-from bokeh.layouts import widgetbox, row, gridplot
+from bokeh.models.widgets.sliders import DateRangeSlider
+from bokeh.layouts import row, column, gridplot
 from bokeh.models import Slider, Select
-from bokeh.io import output_file, output_notebook
+from bokeh.io import output_file, output_notebook, curdoc
 from bokeh.models.widgets import Tabs, Panel
 
 ds1 = pd.read_csv("DataSet1.csv", parse_dates=['date'])
