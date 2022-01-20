@@ -97,14 +97,10 @@ layout1 = row(date_slider_acc, covidFig)
 layout2 = row(date_slider_new, covidFig2)
 layout3 = row(date_slider_neg, covidFig3)
 
-
 cv = Panel(child= layout1, title='acc_confirmed')
 cv2 = Panel(child= layout2, title='new_confirmed')
 cv3 = Panel(child= layout3, title='acc_negative')
 
-cv = Panel(child= covidFig, title='acc_confirmed')
-cv2 = Panel(child= covidFig2, title='new_confirmed')
-cv3 = Panel(child= covidFig3, title='acc_negative')
 tabs = Tabs(tabs=[cv, cv2, cv3])
 
 curdoc().add_root(tabs)
