@@ -7,8 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1OO1zmjSOrtfQZk6gUmzdY7L8k9h4JDOm
 """
 
-pip install bokeh
-
 import pandas as pd
 from bokeh.plotting import figure, show
 from bokeh.models import HoverTool, ColumnDataSource
